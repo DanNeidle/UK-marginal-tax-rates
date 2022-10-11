@@ -14,6 +14,8 @@ dbc_css = "https://cdn.jsdelivr.net/gh/AnnMarieW/dash-bootstrap-templates/dbc.mi
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc_css])
 
+server = app.server
+
 header = html.H4(
     "UK marginal tax rate calculator", className="bg-primary text-white p-2 mb-2 text-center"
 )
