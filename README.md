@@ -4,7 +4,7 @@ Use the web app below to calculate your true marginal income tax rate, based on 
 
 https://marginal-rates.herokuapp.com
 
-Further functionality in development
+Further functionality and detail in development (e.g. childcare, student loan)
 
 
 
