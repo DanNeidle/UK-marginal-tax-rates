@@ -64,7 +64,7 @@ line_graph = dcc.Graph(id='marginal-graph',
 
 controls = dbc.Card(
     [married_dropdown,
-     loan_dropdown,
+     # loan_dropdown,
      children_dropdown],
     body=True,
 )
@@ -91,69 +91,24 @@ app.layout = dbc.Container(
 )
 
 
-# app.layout = html.Div([
-#     # html.H1(
-#     #     children='UK marginal tax rate calculator', style={
-#     #         'textAlign': 'left'},
-#     #     id='title'
-#     # ),
-#
-#     # html.H2(children='It\'s much higher than you might think', style={
-#     #     'textAlign': 'left'
-#     # }),
-#
-#     html.Div([
-#
-#         html.Div([
-#             html.Br(),
-#             dbc.Label("Marital status"),
-#             # html.Label('Marital status'),
-#             dcc.Dropdown(['Married', 'Not married (incl. divorced or widowed)'], 'Married',
-#                          id='married_drop')
-#         ],
-#             # style={'width': '30%', 'display': 'inline-block'}
-#         ),
-#
-#         html.Div([
-#             html.Br(),
-#             html.Label('Student loan?'),
-#             dcc.Dropdown(['Yes', 'No'], 'Yes',
-#                          id='student_loan')
-#         ], style={'width': '30%', 'float': 'center', 'display': 'inline-block'}),
-#
-#         html.Div([
-#             html.Br(),
-#             html.Label('Number of children'),
-#             dcc.Dropdown({i: i for i in range(10)}, 0,
-#                          id='number_children')
-#         ], style={'width': '30%', 'display': 'inline-block'})
-#
-#     ]),
-#
-#     dcc.Graph(id='marginal-graph'
-#               )
-#
-# ], style={'display': 'flex', 'flex-direction': 'column'})
-
-
 @app.callback(
     Output(component_id='marginal-graph', component_property='figure'),
     Input(component_id='number_children', component_property='value'),
     Input(component_id='married_drop', component_property='value'),
-    Input(component_id='student_loan', component_property='value'),
+    # Input(component_id='student_loan', component_property='value'),
 )
-def update_graph(number_children, married_drop, student_loan):
+def update_graph(number_children, married_drop):
     if married_drop == 'Married':
         married = True
     else:
         married = False
+    #
+    # if student_loan == 'Yes':
+    #     loan = True
+    # else:
+    #     loan = False
 
-    if student_loan == 'Yes':
-        loan = True
-    else:
-        loan = False
-
-    dff = calcs.genMarginals(int(number_children), married, loan)
+    dff = calcs.genMarginals(int(number_children), married, False)
     fig = px.line(dff,
                   x="Gross Income",
                   y="Marginal Tax Rate",
